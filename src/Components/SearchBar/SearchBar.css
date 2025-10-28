@@ -1,32 +1,58 @@
-.bg-white {
-    background-color: rgb(229 220 220) !important;
+body {
+    background-color: black;
 }
 
-.search-form {
-    width: 90% !important;
-    margin: 10px auto;
+.search-bar-container {
+    background: linear-gradient(135deg, #a86cff 0%, #ff6e8c 100%);
+    min-height: 100px;
+    border-radius: 40px;
 }
 
-.formm {
-    display: flex;
-    align-items: center;
-    justify-content: space-between !important;
+.search-input-group {
+    max-width: 600px;
 }
 
-.search-form input {
-    border-radius: 8px 0 0 8px;
-    padding: 8px;
+.custom-search-input {
+    border-radius: 50px 0 0 50px !important;
+    height: 50px;
+    font-size: 16px;
+    margin-right: 20px;
+    color: #6c757d;
+    box-shadow: none !important;
+    border-color: transparent !important;
 }
 
-.search-form button {
-    border-radius: 0 8px 8px 0;
-    padding: 8px 12px;
-    background-color: #0d6efd;
-    /* Bootstrap primary color */
+/* Custom styling for the search button */
+.custom-search-button {
+    /* Makes the right side fully rounded */
+    border-radius: 0 50px 50px 0 !important;
+    /* Matches the distinct blue from the image */
+    background-color: #758fe4;
+    /* Ensures the button is a square */
+    width: 2% !important;
+    /* Sets the height to match the input */
+    height: 50px;
+    /* Icon color is white */
     color: white;
-    border: none;
+    /* Optional: Remove default border */
+    border: none !important;
 }
 
-.search-form button:hover {
-    background-color: #0b5ed7;
+/* Styling for the button when hovered/focused */
+.custom-search-button:hover,
+.custom-search-button:focus {
+    /* A slight change on hover for user feedback */
+    background-color: #3b64ef;
+    /* Remove default Bootstrap focus box-shadow */
+    box-shadow: none !important;
+}
+
+/* Adjusting the input-group to make the connection seamless */
+.input-group>.custom-search-input,
+.input-group>.custom-search-button {
+    /* Overrides Bootstrap's default Z-index for input-group-append */
+    position: relative;
+    flex: 1 1 auto;
+    width: 1%;
+    min-width: 0;
 }
