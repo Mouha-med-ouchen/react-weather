@@ -9,7 +9,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
      <div
-      className="mx-auto my-5 p-4 bg-white shadow rounded"
+      className="mx-auto bg-white shadow rounded"
       style={{ width: "100%" }}
     >
       <SearchBar></SearchBar>

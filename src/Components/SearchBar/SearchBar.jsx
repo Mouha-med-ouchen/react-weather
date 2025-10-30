@@ -5,13 +5,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './SearchBar.css';
-import logo from '../../assets/logo.png'; // ✅ المسار الصحيح من src
+import logo from '../../assets/logo.png'; 
 
-// You'll create this file for the custom styles
 
 const SearchBar = () => {
     return (
-        // The main container with the custom gradient background
         <div className="search-bar-container d-flex justify-content-center align-items-center p-2 ">
             <motion.img
                 src={logo}
