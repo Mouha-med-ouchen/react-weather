@@ -19,7 +19,7 @@ const SearchBar = () => {
                 width="80"
                 className="me-3"
                 animate={{ rotate: [0, 5, -5, 0], scale: [1, 1.05, 1] }}
-                transition={{ repeat: Infinity, duration: 4, ease: 'easeInOut' }}
+                transition={{ repeat: Infinity, duration: 2, ease: 'easeInOut' }}
             />
             <div className="input-group search-input-group w-100">
 
