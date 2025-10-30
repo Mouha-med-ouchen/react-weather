@@ -1,8 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { motion } from 'framer-motion';
-
 import SearchBar from './Components/SearchBar/SearchBar';
 import { Weather } from './Components/Weather/Weather';
 const root = ReactDOM.createRoot(document.getElementById('root'));
