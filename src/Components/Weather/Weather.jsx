@@ -67,6 +67,7 @@ export const Weather = () => {
                                     <p className="mb-0">60%</p>
                                 </div>
                             </motion.div>
+                            
                         </div>
                     </div>
                 </motion.div>
