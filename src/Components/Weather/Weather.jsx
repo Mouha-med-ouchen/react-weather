@@ -1,15 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FaSun, FaWind, FaTint } from 'react-icons/fa'; // FontAwesome React Icons
-
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { motion } from 'framer-motion';
-import DefaultWeather from '../Svgs/DefaultWeather'
-import Time from '../Svgs/Time'
 import './Weather.css'
-import Windy from '../Svgs/Windy';
 import Cloudy from '../Svgs/Cloudy';
+import { useSelector } from 'react-redux';
 
 export const Weather = () => {
+    const weatherState = useSelector((state) => {
+        // 1. Log the state object to debug (optional)
+        console.log(state.weather);
+
+        // 2. ⭐️ CRITICAL FIX: Return the desired slice state
+        return state.weather;
+    });
     return (
         <div className="weather-container container mt-1"
         >
@@ -110,6 +114,7 @@ export const Weather = () => {
                     </div>
                 </motion.div>
             </div>
+            {JSON.stringify(weatherState)}
         </div>
     );
 };
