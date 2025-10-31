@@ -7,6 +7,7 @@ import DefaultWeather from '../Svgs/DefaultWeather'
 import Time from '../Svgs/Time'
 import './Weather.css'
 import Windy from '../Svgs/Windy';
+import Cloudy from '../Svgs/Cloudy';
 
 export const Weather = () => {
     return (
@@ -26,8 +27,8 @@ export const Weather = () => {
                             <h5 className="card-title">Today</h5>
 
 
-                            <DefaultWeather
-                                width={'250px'} height={'250px'}></DefaultWeather>
+                            <Cloudy width={80} height={80} />
+
 
                             <h6 className="card-subtitle mb-2 text-muted">Casablanca</h6>
                             <div className="card-subtitle mb-2 text-muted">
@@ -90,7 +91,7 @@ export const Weather = () => {
                                     <h6>Monday</h6>
                                     <motion.p
                                         className="text-warning fw-bold">28°C ☀️
-                                        
+
                                     </motion.p>
                                     <small>Sunny</small>
                                 </div>

@@ -20,7 +20,6 @@
     border-radius: 50px 50px 50px 50px !important;
     height: 50px;
     font-size: 16px;
-    margin-right: 20px;
     color: #000000;
     box-shadow: none !important;
     border-color: transparent !important;
@@ -34,7 +33,7 @@
     /* Matches the distinct blue from the image */
     background-color: #dfe1e7;
     /* Ensures the button is a square */
-    width: 2% !important;
+    width: 10% !important;
     /* Sets the height to match the input */
     height: 50px;
     /* Icon color is white */
