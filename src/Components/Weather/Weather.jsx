@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { FaSun, FaWind, FaTint } from 'react-icons/fa';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { motion } from 'framer-motion';
@@ -7,8 +7,18 @@ import Cloudy from '../Svgs/Cloudy';
 import { useSelector } from 'react-redux';
 
 export const Weather = () => {
+
+    // time :
+    const [currentTime, setCurrentTime] = useState(new Date());
+
+    useEffect(() => {
+        const timer = setInterval(() => {
+            setCurrentTime(new Date());
+        }, 1000); // ⏱️  
+
+        return () => clearInterval(timer);
+    }, []);
     const weatherState = useSelector(({ weather }) => {
-        // تأكد أن الحالة موجودة لتفادي الأخطاء عند أول تحميل
         if (!weather || !weather.main) return {};
         console.log(weather.main.feels_like);
         return weather;
@@ -35,7 +45,7 @@ export const Weather = () => {
                             <h6 className="card-subtitle mb-2 text-muted">{weatherState.name}</h6>
 
                             <div className="card-subtitle mb-2 text-muted">
-                                <span>15H22MIN</span>
+                                <span>{currentTime.toLocaleTimeString('en-GB')}</span>
                             </div>
 
                             {weatherState.main && (
