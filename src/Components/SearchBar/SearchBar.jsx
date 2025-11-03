@@ -20,6 +20,7 @@ const SearchBar = () => {
     const [options, setOptions] = useState([]);
     const [loading, setLoading] = useState(false);
     const [selectedCity, setSelectedCity] = useState(null);
+    const [unity, setUnity] = useState('metric')
     const dispatch = useDispatch()
 
     // ... (debouncedFetchCities and handleInputChange remain the same) ...
@@ -84,7 +85,7 @@ const SearchBar = () => {
 
             fetch(
                 // Use the globally defined WEATHER variable
-                `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${WEATHER}`
+                `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=${unity}&&appid=${WEATHER}`
             )
                 .then(response => {
                     if (!response.ok) {

@@ -6,7 +6,9 @@ const initialState = {
     // These keys match the properties you are dispatching
     clouds: undefined,
     main: undefined,
-    name: undefined,
+    name: 
+        undefined
+     ,
     sys: undefined,
     weather: undefined,
     wind: undefined
