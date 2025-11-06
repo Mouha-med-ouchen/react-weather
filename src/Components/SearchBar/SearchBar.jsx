@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useMemo } from 'react';
+import React, { useState, useCallback, useMemo, useEffect } from 'react'; // 👈 Import useEffect
 import { motion } from 'framer-motion';
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
@@ -18,12 +18,15 @@ const SearchBar = () => {
 
     const [open, setOpen] = useState(false);
     const [options, setOptions] = useState([]);
+    // State for Autocomplete loading (Geoapify)
     const [loading, setLoading] = useState(false);
+    // State for Weather API loading
+    const [weatherLoading, setWeatherLoading] = useState(false); // 👈 NEW STATE
     const [selectedCity, setSelectedCity] = useState(null);
     const [unity, setUnity] = useState('metric')
     const dispatch = useDispatch()
 
-    // ... (debouncedFetchCities and handleInputChange remain the same) ...
+    // ... (debouncedFetchCities remains the same) ...
     const debouncedFetchCities = useMemo(
         () =>
             debounce((value, callback) => {
@@ -71,20 +74,22 @@ const SearchBar = () => {
     }, [debouncedFetchCities]);
 
     const handleCitySelection = (event, newValue) => {
+        // This is triggered when a user selects an option from the list
         setSelectedCity(newValue);
         console.log("Selected City Data:", newValue);
+        // NOTE: The weather search is now handled by the useEffect hook below
     };
 
-    const handleSearchClick = () => {
-
+    const handleSearchClick = useCallback(() => { // 👈 Wrap in useCallback
         // Ensure a city object has been selected AND the key is defined
         if (selectedCity && WEATHER) {
             const { lat, lon, formatted } = selectedCity;
             console.log(`Searching for weather in: ${formatted}`);
             console.log(`Latitude (lat): ${lat}, Longitude (lon): ${lon}`);
 
+            setWeatherLoading(true); // 👈 Start loading
+
             fetch(
-                // Use the globally defined WEATHER variable
                 `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=${unity}&&appid=${WEATHER}`
             )
                 .then(response => {
@@ -93,25 +98,37 @@ const SearchBar = () => {
                     }
                     return response.json();
                 })
-                // Inside the handleSearchClick function, update the .then() block:
-
-                // Your weather fetch function (handleSearchClick .then block)
                 .then(data => {
-                    // Destructure the parts you want to save
                     const { clouds, main, name, sys, weather, wind } = data;
-
                     // Dispatch the action with the destructured data object
                     dispatch(setData({ clouds, main, name, sys, weather, wind }));
+                    console.log(clouds, main, name, sys, weather, wind)
                 })
+                .catch(error => {
+                    console.error("Error fetching weather data:", error);
+                    // You might dispatch an error action here: dispatch(setError(error.message));
+                })
+                .finally(() => {
+                    setWeatherLoading(false); // 👈 Stop loading
+                });
 
 
         } else if (!selectedCity) {
             console.log("No city selected.");
         } else {
-            // This 'else' block will now only run if selectedCity is truthy, but WEATHER is falsy (undefined/null)
             console.error("WEATHER API Key is missing or invalid in the environment.");
         }
-    }
+    }, [selectedCity, WEATHER, unity, dispatch]); // 👈 Dependencies for useCallback
+
+
+    // 🎯 Implementation of the Automatic Search Trigger
+    useEffect(() => {
+        // Automatically call the search function when a city is selected
+        if (selectedCity) {
+            handleSearchClick();
+        }
+    }, [selectedCity, handleSearchClick]); // Re-run effect when city selection or search function changes
+
 
     return (
         <div className="search-bar-container d-flex justify-content-center align-items-center p-2">
@@ -157,14 +174,19 @@ const SearchBar = () => {
                     clearOnBlur={false}
                 />
             </div>
+            {/* The search button now uses the weatherLoading state for feedback */}
             <button
                 className="btn custom-search-button ms-2"
                 type="button"
                 aria-label="Search button"
                 onClick={handleSearchClick}
-                disabled={!selectedCity}
+                disabled={!selectedCity || weatherLoading} // 👈 Disable button while loading or no city selected
             >
-                <FontAwesomeIcon icon={faSearch} />
+                {weatherLoading ? ( // 👈 Show spinner when fetching weather
+                    <CircularProgress color="inherit" size={20} />
+                ) : (
+                    <FontAwesomeIcon icon={faSearch} />
+                )}
             </button>
         </div>
     );
